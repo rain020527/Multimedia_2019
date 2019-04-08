@@ -10,7 +10,7 @@ end
 
 % Calculate the energy with frame and overlap
 temp = 0;
-energy = zeros(1, (floor((length(y))/frameOverlap)-floor(frameSize/frameOverlap)));
+energy = zeros(1, (floor(info.TotalSamples/frameOverlap)-floor(frameSize/frameOverlap)));
 for i = 1:(floor((length(y))/frameOverlap)-floor(frameSize/frameOverlap))
     for j = (((i-1)*frameOverlap)+1):(((i-1)*frameOverlap)+frameSize)   % For loop sum energy with overlap
         temp = temp + (y(j)*w(j-(i-1)*frameOverlap))^2; % (x(m)w(n-m))^2
