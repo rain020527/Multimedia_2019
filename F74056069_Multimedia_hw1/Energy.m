@@ -15,7 +15,7 @@ for i = 1:(floor((length(y))/frameOverlap)-floor(frameSize/frameOverlap))
     for j = (((i-1)*frameOverlap)+1):(((i-1)*frameOverlap)+frameSize)   % For loop sum energy with overlap
         temp = temp + (y(j)*w(j-(i-1)*frameOverlap))^2; % (x(m)w(n-m))^2
     end
-    energy(i) = 10*log10(temp);
+    energy(i) = temp;
     temp = 0;
 end
 
