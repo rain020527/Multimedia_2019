@@ -27,7 +27,7 @@ for i = 1:length(type)
             imshow(blurImg);
             title('Image after Gaussian filter');
             % Apply histogram equlization to image
-            histEqImg = histogramEqualization(grayImg);
+            histEqImg = histogramEqualization(blurImg);
             % Show image after histogram equlization
             subplot(2,2,3);
             imshow(histEqImg);
