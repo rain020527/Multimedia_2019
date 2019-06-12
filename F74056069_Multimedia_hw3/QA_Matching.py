@@ -13,7 +13,8 @@ with open("data/wiki_seg.txt", encoding='utf-8')as f:
     for line in f:
         candidates.append(line.strip().split())
 
-i = 0
+test = 0
+total_ans = ""
 with open("./test_data/PPT_test_corpus.txt", encoding='utf-8') as questions: 
     for eachQ in questions: 
         [question, ans1, ans2, ans3, ans4] = eachQ.rstrip().split('\t')
@@ -41,12 +42,21 @@ with open("./test_data/PPT_test_corpus.txt", encoding='utf-8') as questions:
             index += 1
         res.sort(key=lambda x: x['score'], reverse=True)
         result = []
+        found_best_res = False
         for i in range(len(res)):
-            if res[i]['score'] > 0.67 and (res[i]['text'] in eachA for eachA in ans):
-                dict_temp = {res[i]['id']: res[i]['text'], 'score': res[i]['score']}
-                result.append(dict_temp)
+            for j in range(0, 4):
+                if all(res_seg in (question + ans[j]) for res_seg in res[i]['text'].replace(" ", "")) :
+                    found_best_res = True
+                    dict_temp = {res[i]['id']: res[i]['text'], 'score': res[i]['score']}
+                    result.append(dict_temp)
+                    total_ans += "[%d]\n" % (j+1)
+                    break
+            if found_best_res == True:
+                break        
         print(result)
-        i += 1
-        if i > 0:
+        test += 1
+        if test >= 50:
             break
+with open("./test_data/test_ans.txt", 'w', encoding='utf-8') as ans_txt:
+    ans_txt.write(total_ans)
 
