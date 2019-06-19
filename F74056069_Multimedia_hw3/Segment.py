@@ -14,9 +14,7 @@ output = open('data/wiki_seg.txt', 'w', encoding='utf-8')
 with open('data/Gossiping-QA-Dataset.txt', 'r', encoding='utf-8') as content :
     for texts_num, line in enumerate(content):
         line = line.strip('\n')
-        line = Converter('zh-hant').convert(line)
-        line = line
-        words = jieba.cut(line, cut_all=False)
+        words = jieba.cut(line, cut_all=True)
         for word in words:
             if word not in stopword_set:
                 output.write(word + ' ')
